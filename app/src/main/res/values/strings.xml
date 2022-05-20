@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">taskmaster</string>
+    <string name="click_me">ADD TASK</string>
+    <string name="all_tasks">All Tasks</string>
+    <string name="my_tasks">MY Tasks</string>
+    <string name="second_greeting">welcome</string>
+    <string name="second_description">second description</string>
+    <string name="background_img">img</string>
+    <string name="textview">TextView</string>
+    <string name="Add_Text">Add task</string>
+    <string name="Task_title">Task Title</string>
+    <string name="task_body">Task Body</string>
+    <string name="backButton">Back</string>
+    <string name="AllTask">All Tasks Page</string>
+    <string name="submit">SUBMIT</string>
+</resources>
