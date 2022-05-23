@@ -1,16 +1,24 @@
 package com.taskmaster;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private final View.OnClickListener mAddTaskListener = new View.OnClickListener() {
         @Override
@@ -36,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private Spinner taskSelector;
+    private TextView mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +57,59 @@ public class MainActivity extends AppCompatActivity {
 
         Button addTask = findViewById(R.id.Add_task);
         Button allTasks = findViewById(R.id.All_Tasks);
+        Button btnView = findViewById(R.id.btn_view);
+        taskSelector  = findViewById(R.id.select_task);
+        mUsername = findViewById(R.id.textView);
 
         addTask.setOnClickListener(mAddTaskListener);
         allTasks.setOnClickListener(mAllTaskListener);
+
+
+
+        btnView.setOnClickListener(view -> {
+            Log.i(TAG,"View button clicked");
+            goToTaskDetails();
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_setting:
+                goToSetting();
+                return true;
+            case R.id.action_copyright:
+                Toast.makeText(this, "Copyright 2022", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void goToSetting(){
+        Intent settingIntent = new Intent(this,Setting.class);
+        startActivity(settingIntent);
+    }
+
+    private void goToTaskDetails(){
+        Intent taskDetailsIntent = new Intent(this,taskDetails.class);
+
+        String task = taskSelector.getSelectedItem().toString();
+        taskDetailsIntent.putExtra("title",task );
+        startActivity(taskDetailsIntent);
+    }
+
+    private void setUsername(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mUsername.setText(sharedPreferences.getString(Setting.USERNAME,"no username set"));
 
     }
 
@@ -69,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         Log.i(TAG, "onResume: called - The App is VISIBLE");
         super.onResume();
+        setUsername();
     }
 
     @Override
