@@ -13,3 +13,11 @@ the app have a three pages.
 ## 3- All Task page
 
 ![AllTasks](./img/TaskMasterAllTasks.png)
+
+## 4- Setting page
+
+![setteng](./img/TaskMasterSetting.png)
+
+## 5- Task Details page
+
+![Task Details](./img/TaskMasterTaskDetails.png)
