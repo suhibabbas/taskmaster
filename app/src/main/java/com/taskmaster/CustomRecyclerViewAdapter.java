@@ -40,7 +40,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         holder.title.setText(taskData.get(position).getTitle());
         holder.description.setText(taskData.get(position).getBody());
-        holder.state.setText(taskData.get(position).getState().toString());
+        holder.state.setText(taskData.get(position).getState());
     }
 
     @Override
@@ -64,9 +64,15 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
             description = itemView.findViewById(R.id.description);
             state = itemView.findViewById(R.id.state);
 
-            itemView.setOnClickListener(view -> {
-                listener.onTaskClickListener(getAdapterPosition());
-
+//            itemView.setOnClickListener(view -> {
+//                listener.onTaskClickListener(getAdapterPosition());
+//
+//            });
+            title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onTaskClickListener(getAdapterPosition());
+                }
             });
         }
 

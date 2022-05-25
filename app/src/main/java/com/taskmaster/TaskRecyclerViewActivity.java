@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -12,7 +13,7 @@ import com.taskmaster.data.TaskModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskRescylerViewActivity extends AppCompatActivity {
+public class TaskRecyclerViewActivity extends AppCompatActivity {
     List<TaskModel> taskModelsList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,10 @@ public class TaskRescylerViewActivity extends AppCompatActivity {
 
         // create an adapter -> CustomRecyclerViewAdapter
 
-        CustomRecyclerViewAdapter customRecyclerViewAdapter = new CustomRecyclerViewAdapter(taskModelsList, new CustomRecyclerViewAdapter.CustomClickListener() {
-            @Override
-            public void onTaskClickListener(int position) {
-                Toast.makeText(TaskRescylerViewActivity.this,
-                        "the item clicked" + taskModelsList.get(position).getTitle(),
-                        Toast.LENGTH_SHORT).show();
-            }
+        CustomRecyclerViewAdapter customRecyclerViewAdapter = new CustomRecyclerViewAdapter(taskModelsList,position -> {
+            startActivity(new Intent(getApplicationContext(),taskDetails.class));
         });
+
 
         // set adapter on recycler view
         recyclerView.setAdapter(customRecyclerViewAdapter);

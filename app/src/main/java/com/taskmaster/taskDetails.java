@@ -19,7 +19,9 @@ public class taskDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_details);
 
-        String getTaskTitle = getIntent().getStringExtra("title");
+        String getTaskTitle = getIntent().getStringExtra("Title");
+        String getTaskBody = getIntent().getStringExtra("Body");
+        String getTaskState = getIntent().getStringExtra("State");
 
         TextView title = findViewById(R.id.Title_taskDetails);
         TextView description = findViewById(R.id.Description_TaskDetails);
@@ -28,8 +30,8 @@ public class taskDetails extends AppCompatActivity {
 
 
         title.setText(getTaskTitle);
-        description.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ");
-        state.setText("done");
+        description.setText(getTaskBody);
+        state.setText(getTaskState);
 
 
 
