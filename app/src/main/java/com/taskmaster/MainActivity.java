@@ -2,6 +2,8 @@ package com.taskmaster;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,12 +13,22 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.taskmaster.data.TaskModel;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
+
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -47,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner taskSelector;
     private TextView mUsername;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -70,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG,"View button clicked");
             goToTaskDetails();
         });
+
+
+
 
     }
 
@@ -100,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToTaskDetails(){
-        Intent taskDetailsIntent = new Intent(this,taskDetails.class);
+        Intent taskDetailsIntent = new Intent(this,TaskRescylerViewActivity.class);
 
         String task = taskSelector.getSelectedItem().toString();
         taskDetailsIntent.putExtra("title",task );
@@ -149,5 +165,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         Log.i(TAG, "onStop: called");
     }
+
+
 
 }

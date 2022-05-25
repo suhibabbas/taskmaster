@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Taskmaster">
         <activity
+            android:name=".TaskRescylerViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".taskDetails"
             android:exported="false" />
         <activity
