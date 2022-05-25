@@ -21,3 +21,7 @@ the app have a three pages.
 ## 5- Task Details page
 
 ![Task Details](./img/TaskMasterTaskDetails.png)
+
+## 6- Recycler View
+
+![RecyclerView](./img/TaskMasterTaskRecyclerView.png)
