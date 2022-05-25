@@ -40,7 +40,7 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         holder.title.setText(taskData.get(position).getTitle());
         holder.description.setText(taskData.get(position).getBody());
-        holder.state.setText(taskData.get(position).getState());
+        holder.state.setText(taskData.get(position).getState().toString());
     }
 
     @Override
