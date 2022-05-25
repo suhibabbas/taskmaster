@@ -13,10 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,12 +22,11 @@ import com.taskmaster.data.TaskModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    List<TaskModel> task = new ArrayList<>();
+    List<TaskModel> taskData = new ArrayList<>();
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -64,11 +60,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         Log.i(TAG, "onCreate: called");
+
+        initialiseTaskData();
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        CustomRecyclerViewAdapter  customRecyclerViewAdapter = new CustomRecyclerViewAdapter(taskData,position -> {
+
+            Intent intent = new Intent (getApplicationContext(),taskDetails.class);
+
+            intent.putExtra("Title",taskData.get(position).getTitle());
+            intent.putExtra("Body",taskData.get(position).getBody());
+            intent.putExtra("State",taskData.get(position).getState());
+            startActivity(intent);
+        });
+
+        recyclerView.setAdapter(customRecyclerViewAdapter);
+
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Button addTask = findViewById(R.id.Add_task);
         Button allTasks = findViewById(R.id.All_Tasks);
@@ -87,22 +100,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-//        initialiseTaskData();
-//
-//        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-//
-//        CustomRecyclerViewAdapter customRecyclerViewAdapter = new CustomRecyclerViewAdapter(task, new CustomRecyclerViewAdapter.CustomClickListener() {
-//            @Override
-//            public void onTaskClickListener(int position) {
-//
-//            }
-//        });
-//
-//        recyclerView.setAdapter(customRecyclerViewAdapter);
-//
-//        recyclerView.setHasFixedSize(true);
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
@@ -132,10 +130,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goToTaskDetails(){
-        Intent taskDetailsIntent = new Intent(this,TaskRescylerViewActivity.class);
+        Intent taskDetailsIntent = new Intent(this,taskDetails.class);
 
         String task = taskSelector.getSelectedItem().toString();
-        taskDetailsIntent.putExtra("title",task );
+        taskDetailsIntent.putExtra("Title",task );
+        taskDetailsIntent.putExtra("Body","Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+        taskDetailsIntent.putExtra("State","done");
+
         startActivity(taskDetailsIntent);
     }
 
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         Log.i(TAG, "onResume: called - The App is VISIBLE");
         super.onResume();
-        setUsername();
+//        setUsername();
     }
 
     @Override
@@ -182,10 +183,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onStop: called");
     }
 
-    private void initialiseTaskData(){
-        task.add(new TaskModel("Java","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", TaskModel.State.NEW.toString()));
-        task.add(new TaskModel("C#","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.ASSIGNED.toString()));
-        task.add(new TaskModel("JS","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.COMPLETE.toString()));
+    public void initialiseTaskData(){
+        taskData.add(new TaskModel("Java","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", TaskModel.State.NEW.toString()));
+        taskData.add(new TaskModel("C#","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.ASSIGNED.toString()));
+        taskData.add(new TaskModel("JS","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.COMPLETE.toString()));
     }
 
 }
