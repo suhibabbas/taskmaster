@@ -30,6 +30,8 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
 
+    List<TaskModel> task = new ArrayList<>();
+
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private final View.OnClickListener mAddTaskListener = new View.OnClickListener() {
@@ -85,8 +87,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
+//        initialiseTaskData();
+//
+//        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+//
+//        CustomRecyclerViewAdapter customRecyclerViewAdapter = new CustomRecyclerViewAdapter(task, new CustomRecyclerViewAdapter.CustomClickListener() {
+//            @Override
+//            public void onTaskClickListener(int position) {
+//
+//            }
+//        });
+//
+//        recyclerView.setAdapter(customRecyclerViewAdapter);
+//
+//        recyclerView.setHasFixedSize(true);
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -166,6 +182,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onStop: called");
     }
 
-
+    private void initialiseTaskData(){
+        task.add(new TaskModel("Java","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", TaskModel.State.NEW.toString()));
+        task.add(new TaskModel("C#","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.ASSIGNED.toString()));
+        task.add(new TaskModel("JS","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.COMPLETE.toString()));
+    }
 
 }
