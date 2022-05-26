@@ -2,6 +2,7 @@ package com.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -33,6 +34,8 @@ public class Setting extends AppCompatActivity {
             Log.i(TAG,"saved");
 
             saveUsername();
+
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
 
         mUserNameEditText.addTextChangedListener(new TextWatcher() {
@@ -74,6 +77,9 @@ public class Setting extends AppCompatActivity {
 
 
         Toast.makeText(this,username +" :Saved",Toast.LENGTH_SHORT).show();
+
+
+
     }
 
 }
