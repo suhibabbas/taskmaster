@@ -9,18 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.taskmaster.data.Task;
 import com.taskmaster.data.TaskModel;
 
 import java.util.List;
 
 public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecyclerViewAdapter.CustomViewHolder> {
 
-    List<TaskModel> taskData;
+    List<Task> taskData;
 
 
     CustomClickListener listener;
 
-    public CustomRecyclerViewAdapter(List<TaskModel> taskData, CustomClickListener listener) {
+    public CustomRecyclerViewAdapter(List<Task> taskData, CustomClickListener listener) {
         this.taskData = taskData;
         this.listener = listener;
     }
@@ -64,16 +65,16 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
             description = itemView.findViewById(R.id.description);
             state = itemView.findViewById(R.id.state);
 
-//            itemView.setOnClickListener(view -> {
-//                listener.onTaskClickListener(getAdapterPosition());
-//
-//            });
-            title.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onTaskClickListener(getAdapterPosition());
-                }
+            itemView.setOnClickListener(view -> {
+                listener.onTaskClickListener(getAdapterPosition());
+
             });
+//            title.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    listener.onTaskClickListener(getAdapterPosition());
+//                }
+//            });
         }
 
     }

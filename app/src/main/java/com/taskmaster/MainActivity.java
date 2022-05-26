@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.taskmaster.data.Task;
 import com.taskmaster.data.TaskModel;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
-    List<TaskModel> taskData = new ArrayList<>();
+//    List<TaskModel> taskData = new ArrayList<>();
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -64,16 +65,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.i(TAG, "onCreate: called");
 
-        initialiseTaskData();
+//        initialiseTaskData();
+
+        List<Task> taskList = TaskDatabase.getInstance(getApplicationContext()).taskDAO().getAll();
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        CustomRecyclerViewAdapter  customRecyclerViewAdapter = new CustomRecyclerViewAdapter(taskData,position -> {
+        CustomRecyclerViewAdapter  customRecyclerViewAdapter = new CustomRecyclerViewAdapter(taskList,position -> {
 
             Intent intent = new Intent (getApplicationContext(),taskDetails.class);
 
-            intent.putExtra("Title",taskData.get(position).getTitle());
-            intent.putExtra("Body",taskData.get(position).getBody());
-            intent.putExtra("State",taskData.get(position).getState());
+            intent.putExtra("Title",taskList.get(position).getTitle());
+            intent.putExtra("Body",taskList.get(position).getBody());
+            intent.putExtra("State",taskList.get(position).getState());
             startActivity(intent);
         });
 
@@ -162,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         Log.i(TAG, "onResume: called - The App is VISIBLE");
         super.onResume();
-//        setUsername();
+        setUsername();
     }
 
     @Override
@@ -183,10 +186,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onStop: called");
     }
 
-    public void initialiseTaskData(){
-        taskData.add(new TaskModel("Java","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", TaskModel.State.NEW.toString()));
-        taskData.add(new TaskModel("C#","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.ASSIGNED.toString()));
-        taskData.add(new TaskModel("JS","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.COMPLETE.toString()));
-    }
+//    public void initialiseTaskData(){
+//        taskData.add(new TaskModel("Java","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", TaskModel.State.NEW.toString()));
+//        taskData.add(new TaskModel("C#","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.ASSIGNED.toString()));
+//        taskData.add(new TaskModel("JS","Lorem Ipsum is simply dummy text of the printing and typesetting industry.",TaskModel.State.COMPLETE.toString()));
+//    }
 
 }

@@ -25,3 +25,9 @@ the app have a three pages.
 ## 6- Recycler View
 
 ![RecyclerView](./img/TaskMasterTaskRecyclerView01.png)
+
+## 7- Room
+
+Add Task Form: Modify your Add Task form to save the data entered in as a Task in your local database.
+
+![ROOM](./img/TaskMasterAddTaskDatabase.png)
