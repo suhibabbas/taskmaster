@@ -1,10 +1,12 @@
 package com.taskmaster;
 
 import android.content.Context;
-
-//import androidx.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import androidx.recyclerview.widget.RecyclerView;
+
+
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -19,6 +21,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.assertion.ViewAssertions.selectedDescendantsMatch;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -51,9 +54,24 @@ public class ExampleInstrumentedTest {
    }
 
    @Test
-    public void addNewTaskTest(){
-       onView(withId(R.id.recycler_view))
-               .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-       onView(withId(R.id.task_t)).check(matches(withText("CSS")));
+   public void addTaskTest(){
+       onView(withId(R.id.Add_task)).perform(click());
+       onView(withId(R.id.add_task_tile)).perform(typeText("Test1"),closeSoftKeyboard());
+       onView(withId(R.id.add_task_body)).perform(typeText("Lorem Ipsum is simply dummy text of the printing and typesetting industry."),closeSoftKeyboard());
+       onView(withId(R.id.submit)).perform(click());
+
+       activityActivityScenarioRule.getScenario().onActivity(activity -> {
+           recyclerView = activity.findViewById(R.id.recycler_view);
+       });
+
+       int item = recyclerView.getAdapter().getItemCount();
+       onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(item -1));
+       onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(item -1, click()));
+
+       onView(withId(R.id.task_t)).check(matches(withText("Text1")));
+       onView(withId(R.id.description)).check(matches(withText("Lorem Ipsum is simply dummy text of the printing and typesetting industry")));
+       onView((withId(R.id.task_state))).check(matches(withText("NEW")));
+
+
    }
 }
