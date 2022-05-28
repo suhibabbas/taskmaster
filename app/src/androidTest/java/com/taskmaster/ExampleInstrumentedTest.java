@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.contrib.RecyclerViewActions;
+//import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -65,8 +65,8 @@ public class ExampleInstrumentedTest {
        });
 
        int item = recyclerView.getAdapter().getItemCount();
-       onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(item -1));
-       onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(item -1, click()));
+//       onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(item -1));
+//       onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.scrollToPosition(item -1, click()));
 
        onView(withId(R.id.task_t)).check(matches(withText("Text1")));
        onView(withId(R.id.description)).check(matches(withText("Lorem Ipsum is simply dummy text of the printing and typesetting industry")));

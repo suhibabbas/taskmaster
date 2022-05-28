@@ -22,6 +22,9 @@
     <string name="title">Title</string>
     <string name="description">Description TaskDetails</string>
     <string name="state">State</string>
+    <string name="task1">task1</string>
+    <string name="task2">task2</string>
+    <string name="task3">task3</string>
 
 
     <string-array name="state_items">

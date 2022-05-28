@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.taskmaster.data.Task;
 import com.taskmaster.data.TaskModel;
 
@@ -63,6 +66,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i(TAG, "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e(TAG, "Could not initialize Amplify", e);
+        }
+
+
         Log.i(TAG, "onCreate: called");
 
 //        initialiseTaskData();
@@ -88,19 +102,39 @@ public class MainActivity extends AppCompatActivity {
 
         Button addTask = findViewById(R.id.Add_task);
         Button allTasks = findViewById(R.id.All_Tasks);
-        Button btnView = findViewById(R.id.btn_view);
-        taskSelector  = findViewById(R.id.select_task);
         mUsername = findViewById(R.id.textView);
-
         addTask.setOnClickListener(mAddTaskListener);
         allTasks.setOnClickListener(mAllTaskListener);
 
+        Button task1 = findViewById(R.id.task1);
 
-
-        btnView.setOnClickListener(view -> {
-            Log.i(TAG,"View button clicked");
-            goToTaskDetails();
+        task1.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(),taskDetails.class);
+            intent.putExtra("Title",task1.getText());
+            intent.putExtra("Body","Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+            intent.putExtra("State","NEW");
+            startActivity(intent);
         });
+
+        Button task2 = findViewById(R.id.task2);
+        task2.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(),taskDetails.class);
+            intent.putExtra("Title",task2.getText());
+            intent.putExtra("Body","Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+            intent.putExtra("State","ASSIGNED");
+            startActivity(intent);
+        });
+
+
+        Button task3 = findViewById(R.id.task3);
+        task3.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(),taskDetails.class);
+            intent.putExtra("Title",task3.getText());
+            intent.putExtra("Body","Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
+            intent.putExtra("State","COMPLETE");
+            startActivity(intent);
+        });
+
 
 
 
