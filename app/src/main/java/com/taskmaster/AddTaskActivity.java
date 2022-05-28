@@ -3,6 +3,7 @@ package com.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -11,11 +12,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.taskmaster.data.Task;
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
 
 public class AddTaskActivity extends AppCompatActivity {
 
 private Spinner addTaskState;
+    private static final String TAG = AddTaskActivity.class.getName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +43,40 @@ private Spinner addTaskState;
             String taskState = addTaskState.getSelectedItem().toString();
 
 
-            Task task= new Task(taskTitle,taskBody,taskState);
+//            Task task= new Task(taskTitle,taskBody,taskState);
+//
+//            Long newTaskId = TaskDatabase.getInstance(getApplicationContext()).taskDAO().insertTask(task);
+//
+//            System.out.println("******************** Task ID = " + newTaskId + " ************************");
 
-            Long newTaskId = TaskDatabase.getInstance(getApplicationContext()).taskDAO().insertTask(task);
+            Task task =Task.builder()
+                    .title(taskTitle
+                    ).description(taskBody)
+                    .status(taskState)
+                    .build();
 
-            System.out.println("******************** Task ID = " + newTaskId + " ************************");
+//            Amplify.DataStore.save(
+//                    task,
+//                    success -> Log.i(TAG,"Saved item"),
+//                    error-> Log.i(TAG,"Could not save item to DataStore", error)
+//            );
+
+
+//            Amplify.DataStore.query(Task.class,
+//                    tasks ->{
+//                        while (tasks.hasNext()){
+//                            Task taskQuery =tasks.next();
+//                            Log.i(TAG,"Task");
+//                            Log.i(TAG,"Name: "+ task.getTitle());
+//                        }
+//
+//                    },failure -> Log.e(TAG,"ERROR => ",failure)
+//                    );
+
+            Amplify.API.mutate(ModelMutation.create(task),
+                    success ->{Log.i(TAG,"success =>" + success.getData().getTitle());},
+                    error ->{Log.i(TAG,"ERROR => "+ error);}
+            );
 
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });

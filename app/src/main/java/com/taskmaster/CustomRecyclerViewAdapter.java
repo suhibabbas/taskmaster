@@ -9,7 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.taskmaster.data.Task;
+//import com.taskmaster.data.Task;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.taskmaster.data.TaskModel;
 
 import java.util.List;
@@ -40,8 +41,8 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         holder.title.setText(taskData.get(position).getTitle());
-        holder.description.setText(taskData.get(position).getBody());
-        holder.state.setText(taskData.get(position).getState());
+        holder.description.setText(taskData.get(position).getDescription());
+        holder.state.setText(taskData.get(position).getStatus());
     }
 
     @Override

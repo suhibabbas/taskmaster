@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -19,9 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amplifyframework.AmplifyException;
+import com.amplifyframework.api.aws.AWSApiPlugin;
+import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
-import com.taskmaster.data.Task;
+//import com.taskmaster.data.Task;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.taskmaster.data.TaskModel;
 
 import java.util.ArrayList;
@@ -33,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 //    List<TaskModel> taskData = new ArrayList<>();
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private List<Task> cloudData;
 
     private final View.OnClickListener mAddTaskListener = new View.OnClickListener() {
         @Override
@@ -69,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.addPlugin(new AWSApiPlugin());
             Amplify.configure(getApplicationContext());
 
             Log.i(TAG, "Initialized Amplify");
@@ -76,38 +84,38 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "Could not initialize Amplify", e);
         }
 
-
         Log.i(TAG, "onCreate: called");
 
 //        initialiseTaskData();
 
-        List<Task> taskList = TaskDatabase.getInstance(getApplicationContext()).taskDAO().getAll();
+//        List<Task> taskList = TaskDatabase.getInstance(getApplicationContext()).taskDAO().getAll();
+//
+//        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+//        CustomRecyclerViewAdapter  customRecyclerViewAdapter = new CustomRecyclerViewAdapter(taskList,position -> {
+//
+//            Intent intent = new Intent (getApplicationContext(),taskDetails.class);
+//
+//            intent.putExtra("Title",taskList.get(position).getTitle());
+//            intent.putExtra("Body",taskList.get(position).getBody());
+//            intent.putExtra("State",taskList.get(position).getState());
+//            startActivity(intent);
+//        });
+//
+//        recyclerView.setAdapter(customRecyclerViewAdapter);
+//
+//        recyclerView.setHasFixedSize(true);
+//
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        CustomRecyclerViewAdapter  customRecyclerViewAdapter = new CustomRecyclerViewAdapter(taskList,position -> {
-
-            Intent intent = new Intent (getApplicationContext(),taskDetails.class);
-
-            intent.putExtra("Title",taskList.get(position).getTitle());
-            intent.putExtra("Body",taskList.get(position).getBody());
-            intent.putExtra("State",taskList.get(position).getState());
-            startActivity(intent);
-        });
-
-        recyclerView.setAdapter(customRecyclerViewAdapter);
-
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mUsername = findViewById(R.id.textView);
 
         Button addTask = findViewById(R.id.Add_task);
-        Button allTasks = findViewById(R.id.All_Tasks);
-        mUsername = findViewById(R.id.textView);
         addTask.setOnClickListener(mAddTaskListener);
+
+        Button allTasks = findViewById(R.id.All_Tasks);
         allTasks.setOnClickListener(mAllTaskListener);
 
         Button task1 = findViewById(R.id.task1);
-
         task1.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(),taskDetails.class);
             intent.putExtra("Title",task1.getText());
@@ -134,10 +142,55 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("State","COMPLETE");
             startActivity(intent);
         });
+    }
 
+    @Override
+    protected void onResume() {
 
+        setUsername();
+        cloudData = new ArrayList<>();
 
+        Handler handler = new Handler(Looper.getMainLooper(),message -> {
+            RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
+            CustomRecyclerViewAdapter customRecyclerViewAdapter = new CustomRecyclerViewAdapter(cloudData, new CustomRecyclerViewAdapter.CustomClickListener() {
+                @Override
+                public void onTaskClickListener(int position) {
+                    Intent intent = new Intent(getApplicationContext(),taskDetails.class);
+                    intent.putExtra("Title",cloudData.get(position).getTitle());
+                    intent.putExtra("Title",cloudData.get(position).getDescription());
+                    intent.putExtra("Title",cloudData.get(position).getStatus());
+
+                    startActivity(intent);
+
+                }
+            });
+            recyclerView.setAdapter(customRecyclerViewAdapter);
+
+            recyclerView.setHasFixedSize(true);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+            return true;
+        });
+
+        Amplify.API.query(
+                ModelQuery.list(Task.class), success ->{
+                    for(Task task: success.getData()){
+                        cloudData.add(task);
+                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putString("data", "done");
+
+                    Message message = new Message();
+                    message.setData(bundle);
+                    handler.sendMessage(message);
+                },
+                error -> Log.e("MyAmplifyApp", "Query failure", error)
+        );
+
+        Log.i(TAG, "onResume: called - The App is VISIBLE");
+        super.onResume();
     }
 
     @Override
@@ -195,12 +248,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onRestart: called");
     }
 
-    @Override
-    protected void onResume() {
-        Log.i(TAG, "onResume: called - The App is VISIBLE");
-        super.onResume();
-        setUsername();
-    }
+
 
     @Override
     protected void onPause() {
