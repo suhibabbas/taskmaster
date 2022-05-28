@@ -55,23 +55,23 @@ private Spinner addTaskState;
                     .status(taskState)
                     .build();
 
-//            Amplify.DataStore.save(
-//                    task,
-//                    success -> Log.i(TAG,"Saved item"),
-//                    error-> Log.i(TAG,"Could not save item to DataStore", error)
-//            );
+            Amplify.DataStore.save(
+                    task,
+                    success -> Log.i(TAG,"Saved item"),
+                    error-> Log.i(TAG,"Could not save item to DataStore", error)
+            );
 
 
-//            Amplify.DataStore.query(Task.class,
-//                    tasks ->{
-//                        while (tasks.hasNext()){
-//                            Task taskQuery =tasks.next();
-//                            Log.i(TAG,"Task");
-//                            Log.i(TAG,"Name: "+ task.getTitle());
-//                        }
-//
-//                    },failure -> Log.e(TAG,"ERROR => ",failure)
-//                    );
+            Amplify.DataStore.query(Task.class,
+                    tasks ->{
+                        while (tasks.hasNext()){
+                            Task taskQuery =tasks.next();
+                            Log.i(TAG,"Task");
+                            Log.i(TAG,"Name: "+ task.getTitle());
+                        }
+
+                    },failure -> Log.e(TAG,"ERROR => ",failure)
+                    );
 
             Amplify.API.mutate(ModelMutation.create(task),
                     success ->{Log.i(TAG,"success =>" + success.getData().getTitle());},

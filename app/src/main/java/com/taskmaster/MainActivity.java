@@ -158,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onTaskClickListener(int position) {
                     Intent intent = new Intent(getApplicationContext(),taskDetails.class);
                     intent.putExtra("Title",cloudData.get(position).getTitle());
-                    intent.putExtra("Title",cloudData.get(position).getDescription());
-                    intent.putExtra("Title",cloudData.get(position).getStatus());
+                    intent.putExtra("Body",cloudData.get(position).getDescription());
+                    intent.putExtra("State",cloudData.get(position).getStatus());
 
                     startActivity(intent);
 

@@ -5,8 +5,12 @@ type Task @model {
   title: String!
   description: String
   status: String
+
 }
-type Note @model {
+
+type Team @model{
   id: ID!
-  content: String!
+  teamName: String!
+  tasks: [Task] @hasMany
 }
+
