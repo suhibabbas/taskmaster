@@ -35,8 +35,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiamplifyDatasource"
       },
-      "lastPushTimeStamp": "2022-05-28T17:40:14.085Z",
-      "lastPushDirHash": "V1YDKzdzCNQd/58cNLUhztdal40="
+      "lastPushTimeStamp": "2022-05-28T21:39:59.536Z",
+      "lastPushDirHash": "xEc2NvTnqUvq5uLU7eMEnQ3eEXQ="
     }
   }
 }

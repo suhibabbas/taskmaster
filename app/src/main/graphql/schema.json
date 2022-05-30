@@ -139,7 +139,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "getNote",
+                        "name": "getTeam",
                         "description": null,
                         "args": [
                             {
@@ -159,14 +159,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "Note",
+                            "name": "Team",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "listNotes",
+                        "name": "listTeams",
                         "description": null,
                         "args": [
                             {
@@ -174,7 +174,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelNoteFilterInput",
+                                    "name": "ModelTeamFilterInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -202,14 +202,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "ModelNoteConnection",
+                            "name": "ModelTeamConnection",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "syncNotes",
+                        "name": "syncTeams",
                         "description": null,
                         "args": [
                             {
@@ -217,7 +217,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelNoteFilterInput",
+                                    "name": "ModelTeamFilterInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -255,7 +255,7 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "ModelNoteConnection",
+                            "name": "ModelTeamConnection",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -413,6 +413,18 @@
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
+                    },
+                    {
+                        "name": "teamTasksId",
+                        "description": null,
+                        "args": [],
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "ID",
+                            "ofType": null
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
                     }
                 ],
                 "inputFields": null,
@@ -550,6 +562,16 @@
                         "type": {
                             "kind": "INPUT_OBJECT",
                             "name": "ModelTaskFilterInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "teamTasksId",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIDInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -1062,7 +1084,7 @@
             },
             {
                 "kind": "OBJECT",
-                "name": "Note",
+                "name": "Team",
                 "description": null,
                 "fields": [
                     {
@@ -1082,7 +1104,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "content",
+                        "name": "teamName",
                         "description": null,
                         "args": [],
                         "type": {
@@ -1093,6 +1115,59 @@
                                 "name": "String",
                                 "ofType": null
                             }
+                        },
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "tasks",
+                        "description": null,
+                        "args": [
+                            {
+                                "name": "filter",
+                                "description": null,
+                                "type": {
+                                    "kind": "INPUT_OBJECT",
+                                    "name": "ModelTaskFilterInput",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "sortDirection",
+                                "description": null,
+                                "type": {
+                                    "kind": "ENUM",
+                                    "name": "ModelSortDirection",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "limit",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "Int",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            },
+                            {
+                                "name": "nextToken",
+                                "description": null,
+                                "type": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                },
+                                "defaultValue": null
+                            }
+                        ],
+                        "type": {
+                            "kind": "OBJECT",
+                            "name": "ModelTaskConnection",
+                            "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
@@ -1180,8 +1255,31 @@
                 "possibleTypes": null
             },
             {
+                "kind": "ENUM",
+                "name": "ModelSortDirection",
+                "description": null,
+                "fields": null,
+                "inputFields": null,
+                "interfaces": null,
+                "enumValues": [
+                    {
+                        "name": "ASC",
+                        "description": null,
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    },
+                    {
+                        "name": "DESC",
+                        "description": null,
+                        "isDeprecated": false,
+                        "deprecationReason": null
+                    }
+                ],
+                "possibleTypes": null
+            },
+            {
                 "kind": "INPUT_OBJECT",
-                "name": "ModelNoteFilterInput",
+                "name": "ModelTeamFilterInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
@@ -1196,7 +1294,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "content",
+                        "name": "teamName",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -1213,7 +1311,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "INPUT_OBJECT",
-                                "name": "ModelNoteFilterInput",
+                                "name": "ModelTeamFilterInput",
                                 "ofType": null
                             }
                         },
@@ -1227,7 +1325,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "INPUT_OBJECT",
-                                "name": "ModelNoteFilterInput",
+                                "name": "ModelTeamFilterInput",
                                 "ofType": null
                             }
                         },
@@ -1238,7 +1336,7 @@
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelNoteFilterInput",
+                            "name": "ModelTeamFilterInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -1250,7 +1348,7 @@
             },
             {
                 "kind": "OBJECT",
-                "name": "ModelNoteConnection",
+                "name": "ModelTeamConnection",
                 "description": null,
                 "fields": [
                     {
@@ -1265,7 +1363,7 @@
                                 "name": null,
                                 "ofType": {
                                     "kind": "OBJECT",
-                                    "name": "Note",
+                                    "name": "Team",
                                     "ofType": null
                                 }
                             }
@@ -1420,7 +1518,7 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "createNote",
+                        "name": "createTeam",
                         "description": null,
                         "args": [
                             {
@@ -1431,7 +1529,7 @@
                                     "name": null,
                                     "ofType": {
                                         "kind": "INPUT_OBJECT",
-                                        "name": "CreateNoteInput",
+                                        "name": "CreateTeamInput",
                                         "ofType": null
                                     }
                                 },
@@ -1442,7 +1540,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelNoteConditionInput",
+                                    "name": "ModelTeamConditionInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -1450,14 +1548,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "Note",
+                            "name": "Team",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "updateNote",
+                        "name": "updateTeam",
                         "description": null,
                         "args": [
                             {
@@ -1468,7 +1566,7 @@
                                     "name": null,
                                     "ofType": {
                                         "kind": "INPUT_OBJECT",
-                                        "name": "UpdateNoteInput",
+                                        "name": "UpdateTeamInput",
                                         "ofType": null
                                     }
                                 },
@@ -1479,7 +1577,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelNoteConditionInput",
+                                    "name": "ModelTeamConditionInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -1487,14 +1585,14 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "Note",
+                            "name": "Team",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "deleteNote",
+                        "name": "deleteTeam",
                         "description": null,
                         "args": [
                             {
@@ -1505,7 +1603,7 @@
                                     "name": null,
                                     "ofType": {
                                         "kind": "INPUT_OBJECT",
-                                        "name": "DeleteNoteInput",
+                                        "name": "DeleteTeamInput",
                                         "ofType": null
                                     }
                                 },
@@ -1516,7 +1614,7 @@
                                 "description": null,
                                 "type": {
                                     "kind": "INPUT_OBJECT",
-                                    "name": "ModelNoteConditionInput",
+                                    "name": "ModelTeamConditionInput",
                                     "ofType": null
                                 },
                                 "defaultValue": null
@@ -1524,7 +1622,7 @@
                         ],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "Note",
+                            "name": "Team",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -1592,6 +1690,16 @@
                         "type": {
                             "kind": "SCALAR",
                             "name": "Int",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                    },
+                    {
+                        "name": "teamTasksId",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "ID",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -1674,6 +1782,16 @@
                             "ofType": null
                         },
                         "defaultValue": null
+                    },
+                    {
+                        "name": "teamTasksId",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelIDInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
                     }
                 ],
                 "interfaces": null,
@@ -1739,6 +1857,16 @@
                             "ofType": null
                         },
                         "defaultValue": null
+                    },
+                    {
+                        "name": "teamTasksId",
+                        "description": null,
+                        "type": {
+                            "kind": "SCALAR",
+                            "name": "ID",
+                            "ofType": null
+                        },
+                        "defaultValue": null
                     }
                 ],
                 "interfaces": null,
@@ -1782,7 +1910,7 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "CreateNoteInput",
+                "name": "CreateTeamInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
@@ -1797,7 +1925,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "content",
+                        "name": "teamName",
                         "description": null,
                         "type": {
                             "kind": "NON_NULL",
@@ -1827,12 +1955,12 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "ModelNoteConditionInput",
+                "name": "ModelTeamConditionInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
                     {
-                        "name": "content",
+                        "name": "teamName",
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
@@ -1849,7 +1977,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "INPUT_OBJECT",
-                                "name": "ModelNoteConditionInput",
+                                "name": "ModelTeamConditionInput",
                                 "ofType": null
                             }
                         },
@@ -1863,7 +1991,7 @@
                             "name": null,
                             "ofType": {
                                 "kind": "INPUT_OBJECT",
-                                "name": "ModelNoteConditionInput",
+                                "name": "ModelTeamConditionInput",
                                 "ofType": null
                             }
                         },
@@ -1874,7 +2002,7 @@
                         "description": null,
                         "type": {
                             "kind": "INPUT_OBJECT",
-                            "name": "ModelNoteConditionInput",
+                            "name": "ModelTeamConditionInput",
                             "ofType": null
                         },
                         "defaultValue": null
@@ -1886,7 +2014,7 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "UpdateNoteInput",
+                "name": "UpdateTeamInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
@@ -1905,7 +2033,7 @@
                         "defaultValue": null
                     },
                     {
-                        "name": "content",
+                        "name": "teamName",
                         "description": null,
                         "type": {
                             "kind": "SCALAR",
@@ -1931,7 +2059,7 @@
             },
             {
                 "kind": "INPUT_OBJECT",
-                "name": "DeleteNoteInput",
+                "name": "DeleteTeamInput",
                 "description": null,
                 "fields": null,
                 "inputFields": [
@@ -2006,36 +2134,36 @@
                         "deprecationReason": null
                     },
                     {
-                        "name": "onCreateNote",
+                        "name": "onCreateTeam",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "Note",
+                            "name": "Team",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "onUpdateNote",
+                        "name": "onUpdateTeam",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "Note",
+                            "name": "Team",
                             "ofType": null
                         },
                         "isDeprecated": false,
                         "deprecationReason": null
                     },
                     {
-                        "name": "onDeleteNote",
+                        "name": "onDeleteTeam",
                         "description": null,
                         "args": [],
                         "type": {
                             "kind": "OBJECT",
-                            "name": "Note",
+                            "name": "Team",
                             "ofType": null
                         },
                         "isDeprecated": false,
@@ -3202,29 +3330,6 @@
                 ],
                 "interfaces": null,
                 "enumValues": null,
-                "possibleTypes": null
-            },
-            {
-                "kind": "ENUM",
-                "name": "ModelSortDirection",
-                "description": null,
-                "fields": null,
-                "inputFields": null,
-                "interfaces": null,
-                "enumValues": [
-                    {
-                        "name": "ASC",
-                        "description": null,
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    },
-                    {
-                        "name": "DESC",
-                        "description": null,
-                        "isDeprecated": false,
-                        "deprecationReason": null
-                    }
-                ],
                 "possibleTypes": null
             }
         ],

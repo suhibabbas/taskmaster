@@ -10,6 +10,7 @@ subscription OnCreateTask {
     _version
     _deleted
     _lastChangedAt
+    teamTasksId
   }
 }
 subscription OnUpdateTask {
@@ -23,6 +24,7 @@ subscription OnUpdateTask {
     _version
     _deleted
     _lastChangedAt
+    teamTasksId
   }
 }
 subscription OnDeleteTask {
@@ -36,12 +38,29 @@ subscription OnDeleteTask {
     _version
     _deleted
     _lastChangedAt
+    teamTasksId
   }
 }
-subscription OnCreateNote {
-  onCreateNote {
+subscription OnCreateTeam {
+  onCreateTeam {
     id
-    content
+    teamName
+    tasks {
+      items {
+        id
+        title
+        description
+        status
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        teamTasksId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
     _version
@@ -49,10 +68,26 @@ subscription OnCreateNote {
     _lastChangedAt
   }
 }
-subscription OnUpdateNote {
-  onUpdateNote {
+subscription OnUpdateTeam {
+  onUpdateTeam {
     id
-    content
+    teamName
+    tasks {
+      items {
+        id
+        title
+        description
+        status
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        teamTasksId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
     _version
@@ -60,10 +95,26 @@ subscription OnUpdateNote {
     _lastChangedAt
   }
 }
-subscription OnDeleteNote {
-  onDeleteNote {
+subscription OnDeleteTeam {
+  onDeleteTeam {
     id
-    content
+    teamName
+    tasks {
+      items {
+        id
+        title
+        description
+        status
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        teamTasksId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
     _version

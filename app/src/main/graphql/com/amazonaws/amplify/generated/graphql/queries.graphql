@@ -10,6 +10,7 @@ query GetTask($id: ID!) {
     _version
     _deleted
     _lastChangedAt
+    teamTasksId
   }
 }
 query ListTasks(
@@ -28,6 +29,7 @@ query ListTasks(
       _version
       _deleted
       _lastChangedAt
+      teamTasksId
     }
     nextToken
     startedAt
@@ -55,15 +57,32 @@ query SyncTasks(
       _version
       _deleted
       _lastChangedAt
+      teamTasksId
     }
     nextToken
     startedAt
   }
 }
-query GetNote($id: ID!) {
-  getNote(id: $id) {
+query GetTeam($id: ID!) {
+  getTeam(id: $id) {
     id
-    content
+    teamName
+    tasks {
+      items {
+        id
+        title
+        description
+        status
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        teamTasksId
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
     _version
@@ -71,15 +90,19 @@ query GetNote($id: ID!) {
     _lastChangedAt
   }
 }
-query ListNotes(
-  $filter: ModelNoteFilterInput
+query ListTeams(
+  $filter: ModelTeamFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listNotes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      content
+      teamName
+      tasks {
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -90,13 +113,13 @@ query ListNotes(
     startedAt
   }
 }
-query SyncNotes(
-  $filter: ModelNoteFilterInput
+query SyncTeams(
+  $filter: ModelTeamFilterInput
   $limit: Int
   $nextToken: String
   $lastSync: AWSTimestamp
 ) {
-  syncNotes(
+  syncTeams(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -104,7 +127,11 @@ query SyncNotes(
   ) {
     items {
       id
-      content
+      teamName
+      tasks {
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version

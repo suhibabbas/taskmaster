@@ -111,7 +111,7 @@
             "ApiId"
           ]
         },
-        "Expires": 1654364131
+        "Expires": 1654377841
       }
     },
     "GraphQLAPINONEDS95A13CF0": {
@@ -367,7 +367,7 @@
         "GraphQLAPITransformerSchema3CB2AE18"
       ]
     },
-    "Note": {
+    "Team": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
         "TemplateURL": {
@@ -390,7 +390,7 @@
               {
                 "Ref": "S3DeploymentRootKey"
               },
-              "/stacks/Note.json"
+              "/stacks/Team.json"
             ]
           ]
         },
@@ -455,6 +455,65 @@
         "GraphQLAPITransformerSchema3CB2AE18"
       ]
     },
+    "ConnectionStack": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Join": [
+            "",
+            [
+              "https://s3.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".",
+              {
+                "Ref": "AWS::URLSuffix"
+              },
+              "/",
+              {
+                "Ref": "S3DeploymentBucket"
+              },
+              "/",
+              {
+                "Ref": "S3DeploymentRootKey"
+              },
+              "/stacks/ConnectionStack.json"
+            ]
+          ]
+        },
+        "Parameters": {
+          "referencetotransformerrootstackGraphQLAPI20497F53ApiId": {
+            "Fn::GetAtt": [
+              "GraphQLAPI",
+              "ApiId"
+            ]
+          },
+          "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskTaskDataSource14B0D3B6Name": {
+            "Fn::GetAtt": [
+              "Task",
+              "Outputs.transformerrootstackTaskTaskDataSource14B0D3B6Name"
+            ]
+          },
+          "referencetotransformerrootstackS3DeploymentBucket7592718ARef": {
+            "Ref": "S3DeploymentBucket"
+          },
+          "referencetotransformerrootstackS3DeploymentRootKeyA71EA735Ref": {
+            "Ref": "S3DeploymentRootKey"
+          },
+          "referencetotransformerrootstackTaskNestedStackTaskNestedStackResource8AC104EFOutputstransformerrootstackTaskTaskTableD1773550Ref": {
+            "Fn::GetAtt": [
+              "Task",
+              "Outputs.transformerrootstackTaskTaskTableD1773550Ref"
+            ]
+          }
+        }
+      },
+      "DependsOn": [
+        "GraphQLAPITransformerSchema3CB2AE18",
+        "Task"
+      ]
+    },
     "CustomResourcesjson": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
@@ -499,7 +558,8 @@
         "GraphQLAPI",
         "GraphQLAPITransformerSchema3CB2AE18",
         "Task",
-        "Note"
+        "Team",
+        "ConnectionStack"
       ]
     }
   },

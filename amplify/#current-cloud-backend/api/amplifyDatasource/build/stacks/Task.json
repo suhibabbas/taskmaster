@@ -105,6 +105,10 @@
           {
             "AttributeName": "id",
             "AttributeType": "S"
+          },
+          {
+            "AttributeName": "teamTasksId",
+            "AttributeType": "S"
           }
         ],
         "BillingMode": {
@@ -116,6 +120,36 @@
             }
           ]
         },
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "gsi-Team.tasks",
+            "KeySchema": [
+              {
+                "AttributeName": "teamTasksId",
+                "KeyType": "HASH"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+              "Fn::If": [
+                "ShouldUsePayPerRequestBilling",
+                {
+                  "Ref": "AWS::NoValue"
+                },
+                {
+                  "ReadCapacityUnits": {
+                    "Ref": "DynamoDBModelTableReadIOPS"
+                  },
+                  "WriteCapacityUnits": {
+                    "Ref": "DynamoDBModelTableWriteIOPS"
+                  }
+                }
+              ]
+            }
+          }
+        ],
         "PointInTimeRecoverySpecification": {
           "Fn::If": [
             "ShouldUsePointInTimeRecovery",
@@ -238,7 +272,18 @@
                   ]
                 },
                 {
-                  "Ref": "AWS::NoValue"
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "TaskTable",
+                          "Arn"
+                        ]
+                      },
+                      "/index/*"
+                    ]
+                  ]
                 }
               ]
             }
@@ -1375,6 +1420,19 @@
           "SubscriptionOnCreateTaskDataResolverFnSubscriptionOnCreateTaskDataResolverFnAppSyncFunction60DBFFB9",
           "FunctionId"
         ]
+      }
+    },
+    "transformerrootstackTaskTaskDataSource14B0D3B6Name": {
+      "Value": {
+        "Fn::GetAtt": [
+          "TaskDataSource",
+          "Name"
+        ]
+      }
+    },
+    "transformerrootstackTaskTaskTableD1773550Ref": {
+      "Value": {
+        "Ref": "TaskTable"
       }
     }
   }
