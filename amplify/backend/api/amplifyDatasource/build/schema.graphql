@@ -9,11 +9,13 @@ type Task {
   _version: Int!
   _deleted: Boolean
   _lastChangedAt: AWSTimestamp!
+  teamTasksId: ID
 }
 
-type Note {
+type Team {
   id: ID!
-  content: String!
+  teamName: String!
+  tasks(filter: ModelTaskFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelTaskConnection
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   _version: Int!
@@ -126,15 +128,16 @@ input ModelTaskFilterInput {
   and: [ModelTaskFilterInput]
   or: [ModelTaskFilterInput]
   not: ModelTaskFilterInput
+  teamTasksId: ModelIDInput
 }
 
 type Query {
   getTask(id: ID!): Task
   listTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String): ModelTaskConnection
   syncTasks(filter: ModelTaskFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTaskConnection
-  getNote(id: ID!): Note
-  listNotes(filter: ModelNoteFilterInput, limit: Int, nextToken: String): ModelNoteConnection
-  syncNotes(filter: ModelNoteFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelNoteConnection
+  getTeam(id: ID!): Team
+  listTeams(filter: ModelTeamFilterInput, limit: Int, nextToken: String): ModelTeamConnection
+  syncTeams(filter: ModelTeamFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelTeamConnection
 }
 
 input ModelTaskConditionInput {
@@ -144,6 +147,7 @@ input ModelTaskConditionInput {
   and: [ModelTaskConditionInput]
   or: [ModelTaskConditionInput]
   not: ModelTaskConditionInput
+  teamTasksId: ModelIDInput
 }
 
 input CreateTaskInput {
@@ -152,6 +156,7 @@ input CreateTaskInput {
   description: String
   status: String
   _version: Int
+  teamTasksId: ID
 }
 
 input UpdateTaskInput {
@@ -160,6 +165,7 @@ input UpdateTaskInput {
   description: String
   status: String
   _version: Int
+  teamTasksId: ID
 }
 
 input DeleteTaskInput {
@@ -171,54 +177,54 @@ type Mutation {
   createTask(input: CreateTaskInput!, condition: ModelTaskConditionInput): Task
   updateTask(input: UpdateTaskInput!, condition: ModelTaskConditionInput): Task
   deleteTask(input: DeleteTaskInput!, condition: ModelTaskConditionInput): Task
-  createNote(input: CreateNoteInput!, condition: ModelNoteConditionInput): Note
-  updateNote(input: UpdateNoteInput!, condition: ModelNoteConditionInput): Note
-  deleteNote(input: DeleteNoteInput!, condition: ModelNoteConditionInput): Note
+  createTeam(input: CreateTeamInput!, condition: ModelTeamConditionInput): Team
+  updateTeam(input: UpdateTeamInput!, condition: ModelTeamConditionInput): Team
+  deleteTeam(input: DeleteTeamInput!, condition: ModelTeamConditionInput): Team
 }
 
 type Subscription {
   onCreateTask: Task @aws_subscribe(mutations: ["createTask"])
   onUpdateTask: Task @aws_subscribe(mutations: ["updateTask"])
   onDeleteTask: Task @aws_subscribe(mutations: ["deleteTask"])
-  onCreateNote: Note @aws_subscribe(mutations: ["createNote"])
-  onUpdateNote: Note @aws_subscribe(mutations: ["updateNote"])
-  onDeleteNote: Note @aws_subscribe(mutations: ["deleteNote"])
+  onCreateTeam: Team @aws_subscribe(mutations: ["createTeam"])
+  onUpdateTeam: Team @aws_subscribe(mutations: ["updateTeam"])
+  onDeleteTeam: Team @aws_subscribe(mutations: ["deleteTeam"])
 }
 
-type ModelNoteConnection {
-  items: [Note]!
+type ModelTeamConnection {
+  items: [Team]!
   nextToken: String
   startedAt: AWSTimestamp
 }
 
-input ModelNoteFilterInput {
+input ModelTeamFilterInput {
   id: ModelIDInput
-  content: ModelStringInput
-  and: [ModelNoteFilterInput]
-  or: [ModelNoteFilterInput]
-  not: ModelNoteFilterInput
+  teamName: ModelStringInput
+  and: [ModelTeamFilterInput]
+  or: [ModelTeamFilterInput]
+  not: ModelTeamFilterInput
 }
 
-input ModelNoteConditionInput {
-  content: ModelStringInput
-  and: [ModelNoteConditionInput]
-  or: [ModelNoteConditionInput]
-  not: ModelNoteConditionInput
+input ModelTeamConditionInput {
+  teamName: ModelStringInput
+  and: [ModelTeamConditionInput]
+  or: [ModelTeamConditionInput]
+  not: ModelTeamConditionInput
 }
 
-input CreateNoteInput {
+input CreateTeamInput {
   id: ID
-  content: String!
+  teamName: String!
   _version: Int
 }
 
-input UpdateNoteInput {
+input UpdateTeamInput {
   id: ID!
-  content: String
+  teamName: String
   _version: Int
 }
 
-input DeleteNoteInput {
+input DeleteTeamInput {
   id: ID!
   _version: Int
 }

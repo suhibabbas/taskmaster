@@ -11,6 +11,6 @@ type Task @model {
 type Team @model{
   id: ID!
   teamName: String!
-  tasks: [Task] @hasMany
+#  tasks: [Task] @hasMany
 }
 
