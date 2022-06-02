@@ -5,14 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Team;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 public class Setting extends AppCompatActivity {
@@ -20,6 +31,11 @@ public class Setting extends AppCompatActivity {
     private static final String TAG = Setting.class.getSimpleName();
     private EditText mUserNameEditText;
     public static final String USERNAME = "username";
+    public static final String TEAMNAME = "teamName";
+    private Spinner spinner;
+    private List<String> teamList =new ArrayList<>();
+    private Button mBtnSave;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +44,44 @@ public class Setting extends AppCompatActivity {
 
 
         mUserNameEditText = findViewById(R.id.user_settings);
-        Button btnSave = findViewById(R.id.btn_save);
+        mBtnSave = findViewById(R.id.btn_save);
 
-        btnSave.setOnClickListener(view -> {
+        spinner = findViewById(R.id.teams);
+
+//        Handler handler = new Handler(Looper.getMainLooper(), msg ->{
+//            ArrayAdapter<String> adapter =
+//                    new ArrayAdapter<String>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, teamList);
+//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            spinner.setAdapter(adapter);
+//
+//
+//            return true;
+//
+//        });
+
+        mBtnSave.setOnClickListener(view -> {
             Log.i(TAG,"saved");
 
             saveUsername();
 
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
+
+
+        Amplify.API.query(ModelQuery.list(Team.class),
+                response ->{
+            for (Team team: response.getData()
+                 ) {
+                teamList.add(team.getName());
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("data","done");
+
+            Message message = new Message();
+            message.setData(bundle);
+//            handler.sendMessage(message);
+        },error ->Log.e("MyAmplifyApp", "Query failure", error)
+        );
+
 
         mUserNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -53,12 +98,12 @@ public class Setting extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 Log.i(TAG, "afterTextChanged: the final text is : " + editable.toString());
-                if(!btnSave.isEnabled()){
-                    btnSave.setEnabled(true);
+                if(!mBtnSave.isEnabled()){
+                    mBtnSave.setEnabled(true);
                 }
 
                 if(editable.toString().length() == 0){
-                    btnSave.setEnabled(false);
+                    mBtnSave.setEnabled(false);
                 }
 
             }
@@ -73,11 +118,13 @@ public class Setting extends AppCompatActivity {
         SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
 
         preferencesEditor.putString(USERNAME,username);
+        preferencesEditor.putString(TEAMNAME,spinner.getSelectedItem().toString());
         preferencesEditor.apply();
 
 
         Toast.makeText(this,username +" :Saved",Toast.LENGTH_SHORT).show();
 
+        startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
 
     }
