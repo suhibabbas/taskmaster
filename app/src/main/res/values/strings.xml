@@ -27,6 +27,14 @@
     <string name="task3">task3</string>
 
 
+
+    <string-array name="Teams">
+        <item>Alpha</item>
+        <item>Beta</item>
+        <item>Gamma</item>
+
+    </string-array>
+
     <string-array name="state_items">
         <item>NEW</item>
         <item>ASSIGNED</item>

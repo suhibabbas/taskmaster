@@ -28,6 +28,7 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 //import com.taskmaster.data.Task;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
 import com.taskmaster.data.TaskModel;
 
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
 //    List<TaskModel> taskData = new ArrayList<>();
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private List<Task> cloudData;
+    private List<Task> cloudData= new ArrayList<>();
+
 
     private final View.OnClickListener mAddTaskListener = new View.OnClickListener() {
         @Override
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Spinner taskSelector;
     private TextView mUsername;
+    private Handler handler;
 
 
     @Override
@@ -75,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSApiPlugin());
+            Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.configure(getApplicationContext());
 
             Log.i(TAG, "Initialized Amplify");
@@ -86,27 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(TAG, "onCreate: called");
 
-//        initialiseTaskData();
-
-//        List<Task> taskList = TaskDatabase.getInstance(getApplicationContext()).taskDAO().getAll();
-//
-//        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-//        CustomRecyclerViewAdapter  customRecyclerViewAdapter = new CustomRecyclerViewAdapter(taskList,position -> {
-//
-//            Intent intent = new Intent (getApplicationContext(),taskDetails.class);
-//
-//            intent.putExtra("Title",taskList.get(position).getTitle());
-//            intent.putExtra("Body",taskList.get(position).getBody());
-//            intent.putExtra("State",taskList.get(position).getState());
-//            startActivity(intent);
-//        });
-//
-//        recyclerView.setAdapter(customRecyclerViewAdapter);
-//
-//        recyclerView.setHasFixedSize(true);
-//
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         mUsername = findViewById(R.id.textView);
 
         Button addTask = findViewById(R.id.Add_task);
@@ -115,33 +97,6 @@ public class MainActivity extends AppCompatActivity {
         Button allTasks = findViewById(R.id.All_Tasks);
         allTasks.setOnClickListener(mAllTaskListener);
 
-        Button task1 = findViewById(R.id.task1);
-        task1.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(),taskDetails.class);
-            intent.putExtra("Title",task1.getText());
-            intent.putExtra("Body","Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
-            intent.putExtra("State","NEW");
-            startActivity(intent);
-        });
-
-        Button task2 = findViewById(R.id.task2);
-        task2.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(),taskDetails.class);
-            intent.putExtra("Title",task2.getText());
-            intent.putExtra("Body","Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
-            intent.putExtra("State","ASSIGNED");
-            startActivity(intent);
-        });
-
-
-        Button task3 = findViewById(R.id.task3);
-        task3.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(),taskDetails.class);
-            intent.putExtra("Title",task3.getText());
-            intent.putExtra("Body","Lorem Ipsum is simply dummy text of the printing and typesetting industry.");
-            intent.putExtra("State","COMPLETE");
-            startActivity(intent);
-        });
     }
 
     @Override
@@ -150,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         setUsername();
         cloudData = new ArrayList<>();
 
-        Handler handler = new Handler(Looper.getMainLooper(),message -> {
+        handler = new Handler(Looper.getMainLooper(), message -> {
             RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
             CustomRecyclerViewAdapter customRecyclerViewAdapter = new CustomRecyclerViewAdapter(cloudData, new CustomRecyclerViewAdapter.CustomClickListener() {
@@ -174,11 +129,17 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String teamName = sharedPreferences.getString("teamName","");
+        Log.i("teamName" , teamName);
         Amplify.API.query(
-                ModelQuery.list(Task.class), success ->{
-                    for(Task task: success.getData()){
-                        cloudData.add(task);
+                ModelQuery.list(Team.class, Team.NAME.contains(teamName)),
+                success ->{
+                    for(Team team: success.getData()){
+                        Log.i("get team" , team.toString());
+                        cloudData = team.getTasks();
                     }
+                    Log.i("myTasks" , cloudData.toString());
                     Bundle bundle = new Bundle();
                     bundle.putString("data", "done");
 
@@ -247,8 +208,6 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Log.i(TAG, "onRestart: called");
     }
-
-
 
     @Override
     protected void onPause() {

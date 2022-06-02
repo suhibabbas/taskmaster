@@ -14,7 +14,7 @@ type Task {
 
 type Team {
   id: ID!
-  teamName: String!
+  name: String!
   tasks(filter: ModelTaskFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelTaskConnection
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
@@ -199,14 +199,14 @@ type ModelTeamConnection {
 
 input ModelTeamFilterInput {
   id: ModelIDInput
-  teamName: ModelStringInput
+  name: ModelStringInput
   and: [ModelTeamFilterInput]
   or: [ModelTeamFilterInput]
   not: ModelTeamFilterInput
 }
 
 input ModelTeamConditionInput {
-  teamName: ModelStringInput
+  name: ModelStringInput
   and: [ModelTeamConditionInput]
   or: [ModelTeamConditionInput]
   not: ModelTeamConditionInput
@@ -214,13 +214,13 @@ input ModelTeamConditionInput {
 
 input CreateTeamInput {
   id: ID
-  teamName: String!
+  name: String!
   _version: Int
 }
 
 input UpdateTeamInput {
   id: ID!
-  teamName: String
+  name: String
   _version: Int
 }
 

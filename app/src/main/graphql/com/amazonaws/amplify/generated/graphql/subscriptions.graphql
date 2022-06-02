@@ -44,7 +44,7 @@ subscription OnDeleteTask {
 subscription OnCreateTeam {
   onCreateTeam {
     id
-    teamName
+    name
     tasks {
       items {
         id
@@ -71,7 +71,7 @@ subscription OnCreateTeam {
 subscription OnUpdateTeam {
   onUpdateTeam {
     id
-    teamName
+    name
     tasks {
       items {
         id
@@ -98,7 +98,7 @@ subscription OnUpdateTeam {
 subscription OnDeleteTeam {
   onDeleteTeam {
     id
-    teamName
+    name
     tasks {
       items {
         id
