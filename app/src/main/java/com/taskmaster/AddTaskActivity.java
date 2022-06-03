@@ -120,30 +120,7 @@ public class AddTaskActivity extends AppCompatActivity {
                     error ->{Log.i(TAG,"ERROR => "+ error);}
             );
 
-            // API query
-//        Amplify.API.query(
-//                ModelQuery.list(Task.class, Task.TITLE.contains("Build")),
-//                response -> {
-//                    for (Task task : response.getData()) {
-//                        Log.i(TAG, "------------------> " + task.getTitle());
-//                    }
-//                },
-//                error -> Log.e(TAG, "Query failure", error)
-//        );
 
-//            // Datastore and API sync
-//            Amplify.DataStore.observe(Task.class,
-//                    started -> {
-//                        Log.i(TAG, "Observation began.");
-//                        // TODO: 5/17/22 Update the UI thread with in this call method
-//                        // Manipulate your views
-//
-//                        // call handler
-//                    },
-//                    change -> Log.i(TAG, change.item().toString()),
-//                    failure -> Log.e(TAG, "Observation failed.", failure),
-//                    () -> Log.i(TAG, "Observation complete.")
-//            );
 
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
