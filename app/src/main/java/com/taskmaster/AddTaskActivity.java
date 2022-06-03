@@ -47,7 +47,7 @@ public class AddTaskActivity extends AppCompatActivity {
         addTaskState = findViewById(R.id.task_state);
 
         Handler handler = new Handler(Looper.getMainLooper(),msg ->{
-            Log.i("adapter" , teamList.toString()) ;
+//            Log.i("adapter" , teamList.toString()) ;
             List<String> spinnerList = teamList.stream().map( index -> index.getName()).collect(Collectors.toList());
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item, spinnerList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -57,7 +57,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         Amplify.API.query(ModelQuery.list(Team.class),
                 response -> {
-                    Log.i("MyAmplifyApp", "Query succ");
+//                    Log.i("MyAmplifyApp", "Query succ");
                     for(Team team : response.getData()){
                          teamList.add(team);
                     }
@@ -67,7 +67,9 @@ public class AddTaskActivity extends AppCompatActivity {
                     message.setData(bundle);
 //                    handler.sendMessage(message);
                 },
-                error ->Log.e("MyAmplifyApp", "Query failure", error)
+                error -> {
+//                    Log.e("MyAmplifyApp", "Query failure", error)
+                }
         );
 
         submitButton.setOnClickListener(view -> {
@@ -96,28 +98,36 @@ public class AddTaskActivity extends AppCompatActivity {
             // Data store save
             Amplify.DataStore.save(task,
                     success -> {
-                        Log.i(TAG, "Saved item " + success);
+//                        Log.i(TAG, "Saved item " + success);
 
                         //add the Team to the task
                     },
-                    error ->Log.i(TAG,"Could not save item to DataStore", error));
+                    error -> {
+//                        Log.i(TAG, "Could not save item to DataStore", error);
+                    });
 
             // Data store query
             Amplify.DataStore.query(Task.class,
                     tasks ->{
                         while (tasks.hasNext()){
 //                            Task taskQuery =tasks.next();
-                            Log.i(TAG,"Task");
-                            Log.i(TAG,"Name: "+ task.getTitle());
+//                            Log.i(TAG,"Task");
+//                            Log.i(TAG,"Name: "+ task.getTitle());
                         }
 
-                    },failure -> Log.e(TAG,"ERROR => ",failure)
+                    },failure -> {
+//                        Log.e(TAG, "ERROR => ", failure);
+                    }
             );
 
             // API save to backend
             Amplify.API.mutate(ModelMutation.create(task),
-                    success ->{Log.i(TAG,"success =>" + success.getData().getTitle());},
-                    error ->{Log.i(TAG,"ERROR => "+ error);}
+                    success ->{
+//                Log.i(TAG,"success =>" + success.getData().getTitle());
+                },
+                    error ->{
+//                Log.i(TAG,"ERROR => "+ error);
+            }
             );
 
 
@@ -129,17 +139,21 @@ public class AddTaskActivity extends AppCompatActivity {
     void saveTeam(Team team){
 
         Amplify.DataStore.save(team,
-                success ->  Log.i(TAG, "Saved item " + success) ,
-                error ->Log.i(TAG,"Could not save item to DataStore", error)
+                success -> {
+//                    Log.i(TAG, "Saved item " + success);
+                } ,
+                error -> {
+//                    Log.i(TAG, "Could not save item to DataStore", error);
+                }
         );
 
         Amplify.API.mutate(
                 ModelMutation.create(team),
                 success->{
-                    Log.i(TAG, "saveTeamInAPI: Team saved");
+//                    Log.i(TAG, "saveTeamInAPI: Team saved");
                 },
                 fail->{
-                    Log.i(TAG, "saveTeamInAPI: failed to save the team");
+//                    Log.i(TAG, "saveTeamInAPI: failed to save the team");
                 });
     }
 

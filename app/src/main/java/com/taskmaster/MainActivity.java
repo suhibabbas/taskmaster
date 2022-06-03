@@ -82,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
             Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.configure(getApplicationContext());
 
-            Log.i(TAG, "Initialized Amplify");
+//            Log.i(TAG, "Initialized Amplify");
         } catch (AmplifyException e) {
-            Log.e(TAG, "Could not initialize Amplify", e);
+//            Log.e(TAG, "Could not initialize Amplify", e);
         }
 
-        Log.i(TAG, "onCreate: called");
+//        Log.i(TAG, "onCreate: called");
 
         mUsername = findViewById(R.id.textView);
 
@@ -136,10 +136,10 @@ public class MainActivity extends AppCompatActivity {
                 ModelQuery.list(Team.class, Team.NAME.contains(teamName)),
                 success ->{
                     for(Team team: success.getData()){
-                        Log.i("get team" , team.toString());
+//                        Log.i("get team" , team.toString());
                         cloudData = team.getTasks();
                     }
-                    Log.i("myTasks" , cloudData.toString());
+//                    Log.i("myTasks" , cloudData.toString());
                     Bundle bundle = new Bundle();
                     bundle.putString("data", "done");
 
@@ -147,10 +147,12 @@ public class MainActivity extends AppCompatActivity {
                     message.setData(bundle);
                     handler.sendMessage(message);
                 },
-                error -> Log.e("MyAmplifyApp", "Query failure", error)
+                error -> {
+//                    Log.e("MyAmplifyApp", "Query failure", error)
+                }
         );
 
-        Log.i(TAG, "onResume: called - The App is VISIBLE");
+//        Log.i(TAG, "onResume: called - The App is VISIBLE");
         super.onResume();
     }
 
@@ -200,31 +202,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart: called");
+//        Log.i(TAG, "onStart: called");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.i(TAG, "onRestart: called");
+//        Log.i(TAG, "onRestart: called");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause: called");
+//        Log.i(TAG, "onPause: called");
     }
 
     @Override
     protected void onStop() {
-        Log.i(TAG, "onStop: called");
+//        Log.i(TAG, "onStop: called");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onStop: called");
+//        Log.i(TAG, "onStop: called");
     }
 
 //    public void initialiseTaskData(){

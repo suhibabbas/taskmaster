@@ -25,7 +25,7 @@ public class AllTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_task);
-        Log.i(TAG, "onCreate: called");
+//        Log.i(TAG, "onCreate: called");
 
 
         Button backButton = findViewById(R.id.button);

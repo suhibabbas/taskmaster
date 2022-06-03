@@ -60,7 +60,7 @@ public class Setting extends AppCompatActivity {
 //        });
 
         mBtnSave.setOnClickListener(view -> {
-            Log.i(TAG,"saved");
+//            Log.i(TAG,"saved");
 
             saveUsername();
 
@@ -79,7 +79,9 @@ public class Setting extends AppCompatActivity {
             Message message = new Message();
             message.setData(bundle);
 //            handler.sendMessage(message);
-        },error ->Log.e("MyAmplifyApp", "Query failure", error)
+        },error -> {
+//                    Log.e("MyAmplifyApp", "Query failure", error)
+                }
         );
 
 
@@ -91,13 +93,13 @@ public class Setting extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.i(TAG,"onTextChanged: the text is :"+ charSequence);
+//                Log.i(TAG,"onTextChanged: the text is :"+ charSequence);
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Log.i(TAG, "afterTextChanged: the final text is : " + editable.toString());
+//                Log.i(TAG, "afterTextChanged: the final text is : " + editable.toString());
                 if(!mBtnSave.isEnabled()){
                     mBtnSave.setEnabled(true);
                 }
