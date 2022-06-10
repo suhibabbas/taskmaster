@@ -1,10 +1,5 @@
 package com.taskmaster;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,15 +16,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.api.aws.AWSApiPlugin;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthSession;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
-//import com.taskmaster.data.Task;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
-import com.taskmaster.data.TaskModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private List<Task> cloudData= new ArrayList<>();
+    private String userId ;
+
 
 
     private final View.OnClickListener mAddTaskListener = new View.OnClickListener() {
@@ -77,15 +79,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            Amplify.addPlugin(new AWSApiPlugin());
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.configure(getApplicationContext());
 
-//            Log.i(TAG, "Initialized Amplify");
-        } catch (AmplifyException e) {
-//            Log.e(TAG, "Could not initialize Amplify", e);
-        }
 
 //        Log.i(TAG, "onCreate: called");
 
@@ -172,6 +166,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_copyright:
                 Toast.makeText(this, "Copyright 2022", Toast.LENGTH_SHORT).show();
                 return true;
+            case R.id.logout:
+                logout();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -227,6 +224,47 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        Log.i(TAG, "onStop: called");
+    }
+
+    private void authSession(String method) {
+
+
+
+
+        Amplify.Auth.fetchAuthSession(
+                result -> {
+                    Log.i(TAG, "Auth Session => " + method + result.toString()) ;
+
+                    AWSCognitoAuthSession cognitoAuthSession = (AWSCognitoAuthSession) result;
+
+                    switch(cognitoAuthSession.getIdentityId().getType()) {
+                        case SUCCESS:
+                        {
+                            Log.i("AuthQuickStart", "IdentityId: " + cognitoAuthSession.getIdentityId().getValue());
+                            userId = cognitoAuthSession.getIdentityId().getValue();
+                            break;
+                        }
+
+                        case FAILURE:
+                            Log.i("AuthQuickStart", "IdentityId not present because: " + cognitoAuthSession.getIdentityId().getError().toString());
+                    }
+
+
+                },
+                error -> Log.e(TAG, error.toString())
+        );
+    }
+
+    public void logout(){
+        Amplify.Auth.signOut(
+                () -> {
+                    Log.i(TAG, "Signed out successfully");
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    authSession("logout");
+                    finish();
+                },
+                error -> Log.e(TAG, error.toString())
+        );
     }
 
 //    public void initialiseTaskData(){

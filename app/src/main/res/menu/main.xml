@@ -6,6 +6,10 @@
         android:title="@string/action_setting"
         android:orderInCategory="100"
         app:showAsAction = "ifRoom"/>
+    <item android:id="@+id/logout"
+        android:title="@string/logout"
+        android:orderInCategory="200"
+        app:showAsAction="never" />
     <item android:id="@+id/action_copyright"
         android:title="@string/action_copyright"
         android:orderInCategory="200"
