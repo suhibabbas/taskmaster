@@ -1,16 +1,9 @@
 package com.taskmaster;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.taskmaster.data.TaskModel;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class taskDetails extends AppCompatActivity {
 

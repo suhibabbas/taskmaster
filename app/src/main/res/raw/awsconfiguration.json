@@ -12,5 +12,43 @@
             "ApiKey": "da2-hlhv3zin6ngt3dwrexnj6edudu",
             "ClientDatabasePrefix": "amplifyDatasource_API_KEY"
         }
+    },
+    "CredentialsProvider": {
+        "CognitoIdentity": {
+            "Default": {
+                "PoolId": "us-east-1:9de777c1-ec58-42c7-b826-fa9f0e540eda",
+                "Region": "us-east-1"
+            }
+        }
+    },
+    "CognitoUserPool": {
+        "Default": {
+            "PoolId": "us-east-1_6C60ExKcg",
+            "AppClientId": "4lgshg2b7ihmscn213gkuhecit",
+            "Region": "us-east-1"
+        }
+    },
+    "Auth": {
+        "Default": {
+            "authenticationFlowType": "USER_SRP_AUTH",
+            "socialProviders": [],
+            "usernameAttributes": [
+                "EMAIL"
+            ],
+            "signupAttributes": [
+                "EMAIL"
+            ],
+            "passwordProtectionSettings": {
+                "passwordPolicyMinLength": 8,
+                "passwordPolicyCharacters": []
+            },
+            "mfaConfiguration": "OFF",
+            "mfaTypes": [
+                "SMS"
+            ],
+            "verificationMechanisms": [
+                "EMAIL"
+            ]
+        }
     }
 }
