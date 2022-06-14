@@ -31,12 +31,12 @@
         "GraphQLAPIEndpointOutput": "https://yjyjc2gk7fgivib37ra24ykmxy.appsync-api.us-east-1.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-hlhv3zin6ngt3dwrexnj6edudu"
       },
+      "lastPushTimeStamp": "2022-06-14T19:18:33.501Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiamplifyDatasource"
       },
-      "lastPushTimeStamp": "2022-06-10T13:13:20.378Z",
-      "lastPushDirHash": "YMnjwks+UWo8olsEntN2ovibok8="
+      "lastPushDirHash": "ZKZjZDAgDfZA1+UtRXcmrhDN9p8="
     }
   },
   "auth": {
@@ -65,11 +65,6 @@
           "EMAIL"
         ]
       },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/auth/taskmaster0914b9f0-cloudformation-template.json",
-        "logicalId": "authtaskmaster0914b9f0"
-      },
-      "lastPushTimeStamp": "2022-06-10T13:13:21.304Z",
       "output": {
         "UserPoolId": "us-east-1_6C60ExKcg",
         "AppClientIDWeb": "6i4sao6220vlsmp89rpncmnepr",
@@ -79,7 +74,28 @@
         "IdentityPoolName": "taskmaster0914b9f0_identitypool_0914b9f0__dev",
         "UserPoolName": "taskmaster0914b9f0_userpool_0914b9f0"
       },
-      "lastPushDirHash": "0VBOQFS+/YfbIFdqPWE/K8P1IbY="
+      "lastPushTimeStamp": "2022-06-14T19:18:21.495Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/auth/taskmaster0914b9f0-cloudformation-template.json",
+        "logicalId": "authtaskmaster0914b9f0"
+      }
+    }
+  },
+  "storage": {
+    "s35ff859ba": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "lastPushTimeStamp": "2022-06-14T19:18:21.517Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages35ff859ba"
+      },
+      "output": {
+        "BucketName": "taskmaster9c7b390ef525445d8c4a45ec5b1d30a4145815-dev",
+        "Region": "us-east-1"
+      },
+      "lastPushDirHash": "pYAjiZp9lq/yU3eUP67KYPCr7BI="
     }
   }
 }

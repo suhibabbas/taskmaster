@@ -65,3 +65,7 @@ Add Cognito to your Amplify setup. Add in user login and sign up flows to your a
 ![login](./img/TaskMasterLogin.png)
 ![logut](./img/TaskMasterLogout.png)
 ![signup](./img/TaskMasterSignup.png)
+
+## S3
+
+![S3](./img/TaskMasterS3.png)
