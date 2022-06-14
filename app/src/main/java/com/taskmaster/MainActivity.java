@@ -2,6 +2,8 @@ package com.taskmaster;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,6 +33,7 @@ import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.datastore.generated.model.Task;
 import com.amplifyframework.datastore.generated.model.Team;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,10 +81,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-//        Log.i(TAG, "onCreate: called");
+        Log.i(TAG, "onCreate: called");
 
         mUsername = findViewById(R.id.textView);
 
@@ -109,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("Title",cloudData.get(position).getTitle());
                     intent.putExtra("Body",cloudData.get(position).getDescription());
                     intent.putExtra("State",cloudData.get(position).getStatus());
+                    intent.putExtra("imageKey",cloudData.get(position).getImage());
+
+
 
                     startActivity(intent);
 
@@ -266,6 +269,8 @@ public class MainActivity extends AppCompatActivity {
                 error -> Log.e(TAG, error.toString())
         );
     }
+
+
 
 //    public void initialiseTaskData(){
 //        taskData.add(new TaskModel("Java","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", TaskModel.State.NEW.toString()));
