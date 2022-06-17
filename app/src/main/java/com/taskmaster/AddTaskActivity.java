@@ -54,8 +54,19 @@ public class AddTaskActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if(type.startsWith("image/")){
+            handleSendImage(intent);
+        }
+
 
         Button submitButton = findViewById(R.id.submit);
         spinner = findViewById(R.id.team);
@@ -242,9 +253,43 @@ public class AddTaskActivity extends AppCompatActivity {
 
         }
 
-
-
     }
+
+    private void handleSendImage(Intent intent){
+        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        if (imageUri != null) {
+            uploadSelectedPhoto(imageUri);
+        }
+    }
+
+    private void uploadSelectedPhoto(Uri currentUri) {
+        Bitmap bitmap = null;
+        // Do stuff with the photo/video URI.
+        Log.i(TAG, "onActivityResult: the uri is => " + currentUri);
+        try {
+            bitmap = getBitmapFromUri(currentUri);
+            File file = new File(getApplicationContext().getFilesDir(), "image.jpg");
+            OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.close();
+
+
+            Amplify.Storage.uploadFile("image.jpg",
+                    file,
+                    result -> {
+
+                        imageKey = result.getKey();
+                        Log.i(TAG, "Successfully uploaded: " + imageKey);
+
+                    },
+                    storageFailure -> Log.e(TAG, "Upload failed", storageFailure)
+            );
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     private Bitmap getBitmapFromUri(Uri uri) throws IOException{
         ParcelFileDescriptor parcelFileDescriptor = getContentResolver().openFileDescriptor(uri,"r");
         FileDescriptor fileDescriptor= parcelFileDescriptor.getFileDescriptor();
@@ -252,4 +297,5 @@ public class AddTaskActivity extends AppCompatActivity {
         parcelFileDescriptor.close();
         return image;
     }
+
 }
