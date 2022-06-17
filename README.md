@@ -69,3 +69,9 @@ Add Cognito to your Amplify setup. Add in user login and sign up flows to your a
 ## S3
 
 ![S3](./img/TaskMasterS3.png)
+
+## Notifications
+
+Add an intent filter to your application such that a user can hit the “share” button on an image in another application, choose TaskMaster as the app to share that image with, and be taken directly to the Add a Task activity with that image pre-selected.
+
+![Notifications](./img/TaskMasterTaskIntentFilter.png)
