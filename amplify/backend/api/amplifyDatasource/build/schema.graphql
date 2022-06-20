@@ -5,6 +5,8 @@ type Task {
   description: String
   status: String
   image: String
+  Latitude: Float
+  Longitude: Float
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
   _version: Int!
@@ -127,6 +129,8 @@ input ModelTaskFilterInput {
   description: ModelStringInput
   status: ModelStringInput
   image: ModelStringInput
+  Latitude: ModelFloatInput
+  Longitude: ModelFloatInput
   and: [ModelTaskFilterInput]
   or: [ModelTaskFilterInput]
   not: ModelTaskFilterInput
@@ -147,6 +151,8 @@ input ModelTaskConditionInput {
   description: ModelStringInput
   status: ModelStringInput
   image: ModelStringInput
+  Latitude: ModelFloatInput
+  Longitude: ModelFloatInput
   and: [ModelTaskConditionInput]
   or: [ModelTaskConditionInput]
   not: ModelTaskConditionInput
@@ -159,6 +165,8 @@ input CreateTaskInput {
   description: String
   status: String
   image: String
+  Latitude: Float
+  Longitude: Float
   _version: Int
   teamTasksId: ID
 }
@@ -169,6 +177,8 @@ input UpdateTaskInput {
   description: String
   status: String
   image: String
+  Latitude: Float
+  Longitude: Float
   _version: Int
   teamTasksId: ID
 }

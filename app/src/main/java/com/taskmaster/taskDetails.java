@@ -25,17 +25,24 @@ public class taskDetails extends AppCompatActivity {
         String getTaskBody = getIntent().getStringExtra("Body");
         String getTaskState = getIntent().getStringExtra("State");
         String imageKey = getIntent().getStringExtra("imageKey");
+        String longitude = getIntent().getStringExtra("longitude");
+        String latitude = getIntent().getStringExtra("latitude");
+
 
         TextView title = findViewById(R.id.Title_taskDetails);
         TextView description = findViewById(R.id.Description_TaskDetails);
         TextView state = findViewById(R.id.State);
+        TextView lon = findViewById(R.id.longitude);
+        TextView lat = findViewById(R.id.latitude);
 
 
 
 
         title.setText(getTaskTitle);
-        description.setText(getTaskBody);
+        description.setText(getTaskBody );
         state.setText(getTaskState);
+        lon.setText(longitude);
+        lat.setText(latitude);
         if(imageKey != null){
             setImage(imageKey);
         }
