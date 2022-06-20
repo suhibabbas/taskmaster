@@ -31,12 +31,12 @@
         "GraphQLAPIEndpointOutput": "https://yjyjc2gk7fgivib37ra24ykmxy.appsync-api.us-east-1.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-hlhv3zin6ngt3dwrexnj6edudu"
       },
-      "lastPushTimeStamp": "2022-06-14T19:18:33.501Z",
+      "lastPushTimeStamp": "2022-06-20T21:36:22.975Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiamplifyDatasource"
       },
-      "lastPushDirHash": "ZKZjZDAgDfZA1+UtRXcmrhDN9p8="
+      "lastPushDirHash": "Rxf+tJtSn1nWJ3yZOAlfqeL7sak="
     }
   },
   "auth": {
@@ -74,7 +74,7 @@
         "IdentityPoolName": "taskmaster0914b9f0_identitypool_0914b9f0__dev",
         "UserPoolName": "taskmaster0914b9f0_userpool_0914b9f0"
       },
-      "lastPushTimeStamp": "2022-06-14T19:18:21.495Z",
+      "lastPushTimeStamp": "2022-06-20T21:36:00.509Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/auth/taskmaster0914b9f0-cloudformation-template.json",
         "logicalId": "authtaskmaster0914b9f0"
@@ -86,7 +86,7 @@
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "lastPushTimeStamp": "2022-06-14T19:18:21.517Z",
+      "lastPushTimeStamp": "2022-06-20T21:36:00.537Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storages35ff859ba"
@@ -96,6 +96,36 @@
         "Region": "us-east-1"
       },
       "lastPushDirHash": "pYAjiZp9lq/yU3eUP67KYPCr7BI="
+    }
+  },
+  "geo": {
+    "map082bcb10": {
+      "isDefault": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Map",
+      "mapStyle": "VectorEsriStreets",
+      "accessType": "AuthorizedUsers",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "taskmaster0914b9f0",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/geo/map082bcb10-cloudformation-template.json",
+        "logicalId": "geomap082bcb10"
+      },
+      "lastPushTimeStamp": "2022-06-20T21:36:00.566Z",
+      "output": {
+        "Style": "VectorEsriStreets",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:geo:us-east-1:741222286518:map/map082bcb10-dev",
+        "Name": "map082bcb10-dev"
+      },
+      "lastPushDirHash": "kleyR61d1DZu9imtbcfhYfL+FZg="
     }
   }
 }

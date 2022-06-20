@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("Body",cloudData.get(position).getDescription());
                     intent.putExtra("State",cloudData.get(position).getStatus());
                     intent.putExtra("imageKey",cloudData.get(position).getImage());
+                    intent.putExtra("latitude",cloudData.get(position).getLatitude().toString());
+                    intent.putExtra("longitude",cloudData.get(position).getLongitude().toString());
 
 
 

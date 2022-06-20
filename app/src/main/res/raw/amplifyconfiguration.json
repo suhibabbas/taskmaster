@@ -86,5 +86,20 @@
                 "defaultAccessLevel": "guest"
             }
         }
+    },
+    "geo": {
+        "plugins": {
+            "awsLocationGeoPlugin": {
+                "region": "us-east-1",
+                "maps": {
+                    "items": {
+                        "map082bcb10-dev": {
+                            "style": "VectorEsriStreets"
+                        }
+                    },
+                    "default": "map082bcb10-dev"
+                }
+            }
+        }
     }
 }
