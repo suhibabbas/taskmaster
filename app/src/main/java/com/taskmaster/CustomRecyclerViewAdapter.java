@@ -67,12 +67,6 @@ public class CustomRecyclerViewAdapter extends RecyclerView.Adapter<CustomRecycl
                 listener.onTaskClickListener(getAdapterPosition());
 
             });
-//            title.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    listener.onTaskClickListener(getAdapterPosition());
-//                }
-//            });
         }
 
     }

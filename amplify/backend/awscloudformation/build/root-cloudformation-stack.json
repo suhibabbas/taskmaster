@@ -172,7 +172,7 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/auth/taskmaster0914b9f0-cloudformation-template.json",
         "Parameters": {
           "identityPoolName": "taskmaster0914b9f0_identitypool_0914b9f0",
-          "allowUnauthenticatedIdentities": false,
+          "allowUnauthenticatedIdentities": true,
           "resourceNameTruncated": "taskma0914b9f0",
           "userPoolName": "taskmaster0914b9f0_userpool_0914b9f0",
           "autoVerifiedAttributes": "email",
@@ -273,6 +273,76 @@
               "Outputs.UserPoolId"
             ]
           },
+          "env": "dev"
+        }
+      }
+    },
+    "analyticstaskmaster": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "Parameters": {
+          "appName": "taskmaster",
+          "roleName": "pinpointLambdaRole7e5315f2",
+          "cloudformationPolicyName": "cloudformationPolicy7e5315f2",
+          "cloudWatchPolicyName": "cloudWatchPolicy7e5315f2",
+          "pinpointPolicyName": "pinpointPolicy7e5315f2",
+          "authPolicyName": "pinpoint_amplify_7e5315f2",
+          "unauthPolicyName": "pinpoint_amplify_7e5315f2",
+          "authRoleName": {
+            "Ref": "AuthRoleName"
+          },
+          "unauthRoleName": {
+            "Ref": "UnauthRoleName"
+          },
+          "authRoleArn": {
+            "Fn::GetAtt": [
+              "AuthRole",
+              "Arn"
+            ]
+          },
+          "env": "dev"
+        }
+      }
+    },
+    "predictionstranslateTexta007d87c": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/predictions/translateTexta007d87c-template.json",
+        "Parameters": {
+          "resourceName": "translateTexta007d87c",
+          "convertPolicyName": "translateTextPolicya007d87c",
+          "authRoleName": {
+            "Ref": "AuthRoleName"
+          },
+          "unauthRoleName": {
+            "Ref": "UnauthRoleName"
+          },
+          "convertType": "translateText",
+          "sourceLang": "en",
+          "targetLang": "ar",
+          "access": "auth",
+          "env": "dev"
+        }
+      }
+    },
+    "predictionsspeechGenerator1db39de5": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/predictions/speechGenerator1db39de5-template.json",
+        "Parameters": {
+          "resourceName": "speechGenerator1db39de5",
+          "convertPolicyName": "speechGeneratorPolicy1db39de5",
+          "authRoleName": {
+            "Ref": "AuthRoleName"
+          },
+          "unauthRoleName": {
+            "Ref": "UnauthRoleName"
+          },
+          "convertType": "speechGenerator",
+          "language": "en-US",
+          "voice": "Joanna",
+          "access": "auth",
           "env": "dev"
         }
       }

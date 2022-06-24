@@ -110,8 +110,15 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("Body",cloudData.get(position).getDescription());
                     intent.putExtra("State",cloudData.get(position).getStatus());
                     intent.putExtra("imageKey",cloudData.get(position).getImage());
-                    intent.putExtra("latitude",cloudData.get(position).getLatitude().toString());
-                    intent.putExtra("longitude",cloudData.get(position).getLongitude().toString());
+
+                    if(cloudData.get(position).getLatitude() != null){
+                        intent.putExtra("latitude",cloudData.get(position).getLatitude().toString());
+                        intent.putExtra("longitude",cloudData.get(position).getLongitude().toString());
+                    }else {
+                        intent.putExtra("latitude","no location");
+                        intent.putExtra("longitude","no location");
+                    }
+
 
 
 
@@ -130,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String teamName = sharedPreferences.getString("teamName","");
+
         Log.i("teamName" , teamName);
         Amplify.API.query(
                 ModelQuery.list(Team.class, Team.NAME.contains(teamName)),
@@ -232,10 +240,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void authSession(String method) {
-
-
-
-
         Amplify.Auth.fetchAuthSession(
                 result -> {
                     Log.i(TAG, "Auth Session => " + method + result.toString()) ;
