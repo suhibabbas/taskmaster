@@ -73,4 +73,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="play">play</string>
     <string name="translate">translate</string>
+    <string name="interstitial_ad">Interstitial Ad</string>
+    <string name="rewarded_ad">rewarded Ad</string>
 </resources>
