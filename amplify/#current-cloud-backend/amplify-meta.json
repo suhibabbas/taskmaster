@@ -31,7 +31,7 @@
         "GraphQLAPIEndpointOutput": "https://yjyjc2gk7fgivib37ra24ykmxy.appsync-api.us-east-1.amazonaws.com/graphql",
         "GraphQLAPIKeyOutput": "da2-hlhv3zin6ngt3dwrexnj6edudu"
       },
-      "lastPushTimeStamp": "2022-06-20T21:36:22.975Z",
+      "lastPushTimeStamp": "2022-06-24T09:27:47.065Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiamplifyDatasource"
@@ -74,11 +74,12 @@
         "IdentityPoolName": "taskmaster0914b9f0_identitypool_0914b9f0__dev",
         "UserPoolName": "taskmaster0914b9f0_userpool_0914b9f0"
       },
-      "lastPushTimeStamp": "2022-06-20T21:36:00.509Z",
+      "lastPushTimeStamp": "2022-06-24T09:27:47.128Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/auth/taskmaster0914b9f0-cloudformation-template.json",
         "logicalId": "authtaskmaster0914b9f0"
-      }
+      },
+      "lastPushDirHash": "c5tU4Itgjyo8hy65TnTXvm5l2lY="
     }
   },
   "storage": {
@@ -86,7 +87,7 @@
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "lastPushTimeStamp": "2022-06-20T21:36:00.537Z",
+      "lastPushTimeStamp": "2022-06-24T09:27:47.185Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storages35ff859ba"
@@ -118,7 +119,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/geo/map082bcb10-cloudformation-template.json",
         "logicalId": "geomap082bcb10"
       },
-      "lastPushTimeStamp": "2022-06-20T21:36:00.566Z",
+      "lastPushTimeStamp": "2022-06-24T09:27:47.245Z",
       "output": {
         "Style": "VectorEsriStreets",
         "Region": "us-east-1",
@@ -126,6 +127,57 @@
         "Name": "map082bcb10-dev"
       },
       "lastPushDirHash": "kleyR61d1DZu9imtbcfhYfL+FZg="
+    }
+  },
+  "analytics": {
+    "taskmaster": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "logicalId": "analyticstaskmaster"
+      },
+      "lastPushTimeStamp": "2022-06-24T09:27:47.306Z",
+      "output": {
+        "appName": "taskmaster-dev",
+        "Region": "us-east-1",
+        "Id": "2879eed228534ca698839800081eac8a"
+      },
+      "lastPushDirHash": "mNCcFf/usRnQwmjF1g5qy64y3Ts="
+    }
+  },
+  "predictions": {
+    "translateTexta007d87c": {
+      "providerPlugin": "awscloudformation",
+      "service": "Translate",
+      "convertType": "translateText",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/predictions/translateTexta007d87c-template.json",
+        "logicalId": "predictionstranslateTexta007d87c"
+      },
+      "lastPushTimeStamp": "2022-06-24T09:27:47.360Z",
+      "output": {
+        "targetLang": "ar",
+        "sourceLang": "en",
+        "region": "us-east-1"
+      },
+      "lastPushDirHash": "U9RqcVdk+uIC74nMAcQpgmGj1Bc="
+    },
+    "speechGenerator1db39de5": {
+      "providerPlugin": "awscloudformation",
+      "service": "Polly",
+      "convertType": "speechGenerator",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-taskmaster-dev-145815-deployment/amplify-cfn-templates/predictions/speechGenerator1db39de5-template.json",
+        "logicalId": "predictionsspeechGenerator1db39de5"
+      },
+      "lastPushTimeStamp": "2022-06-24T09:27:49.917Z",
+      "output": {
+        "voice": "Joanna",
+        "language": "en-US",
+        "region": "us-east-1"
+      },
+      "lastPushDirHash": "YBogMhIxXQQuN1P48DrTVaAEhes="
     }
   }
 }

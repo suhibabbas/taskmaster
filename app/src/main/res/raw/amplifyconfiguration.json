@@ -1,6 +1,19 @@
 {
     "UserAgent": "aws-amplify-cli/2.0",
     "Version": "1.0",
+    "analytics": {
+        "plugins": {
+            "awsPinpointAnalyticsPlugin": {
+                "pinpointAnalytics": {
+                    "appId": "2879eed228534ca698839800081eac8a",
+                    "region": "us-east-1"
+                },
+                "pinpointTargeting": {
+                    "region": "us-east-1"
+                }
+            }
+        }
+    },
     "api": {
         "plugins": {
             "awsAPIPlugin": {
@@ -73,6 +86,38 @@
                     "Default": {
                         "Bucket": "taskmaster9c7b390ef525445d8c4a45ec5b1d30a4145815-dev",
                         "Region": "us-east-1"
+                    }
+                },
+                "PinpointAnalytics": {
+                    "Default": {
+                        "AppId": "2879eed228534ca698839800081eac8a",
+                        "Region": "us-east-1"
+                    }
+                },
+                "PinpointTargeting": {
+                    "Default": {
+                        "Region": "us-east-1"
+                    }
+                }
+            }
+        }
+    },
+    "predictions": {
+        "plugins": {
+            "awsPredictionsPlugin": {
+                "defaultRegion": "us-east-1",
+                "convert": {
+                    "translateText": {
+                        "targetLang": "ar",
+                        "sourceLang": "en",
+                        "region": "us-east-1",
+                        "defaultNetworkPolicy": "auto"
+                    },
+                    "speechGenerator": {
+                        "voice": "Joanna",
+                        "language": "en-US",
+                        "region": "us-east-1",
+                        "defaultNetworkPolicy": "auto"
                     }
                 }
             }

@@ -18,4 +18,13 @@
         <item name="cardCornerRadius">10dp</item>
         <item name="cardElevation">4dp</item>
     </style>
+
+    <style name="Theme.Taskmaster.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Taskmaster.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Taskmaster.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

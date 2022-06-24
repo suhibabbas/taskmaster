@@ -85,3 +85,18 @@ When the user adds a task, their location should be retrieved and included as pa
 On the Task Detail activity, the location of a Task should be displayed if it exists.
 
 ![Map](./img/TaskMasterMap.png)
+
+
+## Intent Filters
+
+### Analytics
+
+On the “Main” activity (and any other activities you like), start recording at least one AnalyticsEvent. Make sure you can view instances of that event, including their custom properties, in Amazon Pinpoint.
+
+![Analytics](./img/TaskMasterAmplifyAnalytics.png)
+
+### Text To Speech Second Predictions Integration
+
+On the Task Detail activity, add a button to read out the task’s description using the Amplify Predictions library.
+
+![translate](./img/TaskMasterTranslateAndPlayAudio.png)
